@@ -275,17 +275,17 @@ Sebelum itu, file data + Git lebih aman dan lebih mudah diwariskan.
 - [ ] Commit pekerjaan Fase 1 (Laravel 8.83.29) sebagai titik aman cadangan
 
 ### Fase M: Migrasi Laravel 12 (branch `upgrade-laravel-12`)
-Prinsip: **paritas tampilan dan URL**, ditambah perbaikan yang murah dikerjakan sekalian.
-- [ ] Skeleton Laravel 12 terbaru; salin views, aset, dan route
-- [ ] Tidak membawa: `routes/api.php`, Sanctum, Guzzle, CORS, Mix/axios, file mati (STK-03, STK-05, RTE-01, KOD-08)
-- [ ] Hapus catch-all, buat halaman 404/500/503 (RTE-02, SEC-10)
-- [ ] Hapus route duplikat, `Route::view`, nama route deskriptif (RTE-03/04/06)
-- [ ] Hapus jQuery UI (STK-04)
-- [ ] Perbaiki HTML tidak valid saat menyalin view; nama view kebab-case; `lang="id"`; favicon (KOD-01/04/07, SEO-01)
-- [ ] `.env.example` aman produksi; sesi `file`, tanpa database (SEC-01)
-- [ ] Banner event otomatis tersembunyi bila tanggal lewat; tahun footer dinamis (SEO-03 minimal)
-- [ ] Laravel Pint; test fitur dasar (KOD-09)
-- [ ] Bandingkan tampilan lama vs baru di 375 / 768 / 1280 px
+Prinsip: **paritas tampilan dan URL**, ditambah perbaikan yang murah dikerjakan sekalian. Detail dan bukti uji: [MIGRASI_LARAVEL_12.md](MIGRASI_LARAVEL_12.md).
+- [x] Skeleton Laravel 12 terbaru (v12.12.2, framework 12.70.2); salin views, aset, dan route
+- [x] Tidak membawa: `routes/api.php`, Sanctum, CORS, Mix/axios, file mati (STK-03, STK-05, RTE-01, KOD-08). *Catatan:* Guzzle tetap terpasang karena dibutuhkan `laravel/framework` 12
+- [x] Hapus catch-all, buat halaman 404/500/503 (RTE-02, SEC-10)
+- [x] Hapus route duplikat, `Route::view`, nama route = slug URL (RTE-03/04/06)
+- [x] Hapus jQuery UI (STK-04)
+- [x] Perbaiki HTML tidak valid; nama view kebab-case; `lang="id"`; `rel="icon"` (KOD-01/04/07). *Sisa:* `favicon.ico` masih file kosong (SEO-01, Fase K)
+- [x] `.env.example` aman produksi; sesi `file`, tanpa database (SEC-01)
+- [x] Banner event otomatis tersembunyi bila tanggal lewat; tahun footer dinamis (SEO-03 minimal)
+- [x] Laravel Pint; 28 test fitur & unit (KOD-09)
+- [x] Bandingkan tampilan lama vs baru di 375 / 768 / 1280 px: diff HTML + perbandingan piksel 10 halaman di tiga lebar. Hanya baris hak cipta footer dan banner beranda yang berbeda ([MIGRASI_LARAVEL_12.md §7.1](MIGRASI_LARAVEL_12.md))
 
 ### Fase H: Hardening (setelah situs hidup)
 - [ ] Middleware security header; CSP Report-Only → enforce (SEC-02)

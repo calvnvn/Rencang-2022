@@ -4,6 +4,8 @@
 > Disusun 2 November 2026 sebagai dasar upgrade PHP 8.2 yang diminta IT Infrastructure UMN.
 > Dokumen terkait: [PRD.md](PRD.md) · [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)
 
+> ℹ️ **Dokumen ini menggambarkan versi lama (Laravel 8).** Sejak branch `upgrade-laravel-12`, struktur folder, route, dan dependensi sudah berubah: lihat [MIGRASI_LARAVEL_12.md](MIGRASI_LARAVEL_12.md) untuk keadaan terbaru dan [README.md](../README.md) untuk panduan developer. Bagian analisis (§6 lapisan presentasi, §7 utang teknis) sebagian besar masih berlaku karena view dan CSS dipertahankan.
+
 ---
 
 ## 1. Ringkasan eksekutif

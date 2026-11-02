@@ -182,20 +182,23 @@
     margin-top: 30px;
 }
 
-.button button{
-    outline: none;
+.button .btn-cta{
+    display: inline-block;
     border:none;
     border-radius: 10px;
     box-shadow: 0px 5px 10px 0px #5B5B5B;
     color: #FFF3E1;
     font-weight: 500;
-    transition: duration .2s;
+    text-decoration: none;
+    transition: transform .2s;
     padding:10px 30px;
     background-color: #EC5D56;
 }
 
-.button button:hover{
+.button .btn-cta:hover{
 	transform : scale(1.1);
+    color: #FFF3E1;
+    text-decoration: none;
     cursor:pointer;
 }
 
@@ -258,7 +261,7 @@
     color: #FFF3E1;
     background-color:#EC5D56;
     font-weight: 500;
-    transition: duration .2s;
+    transition: transform .2s;
 }
 
 .introduce button:hover{
@@ -468,16 +471,16 @@
         margin-top:10px;
     }
 
-    .button button{
+    .button .btn-cta{
         font-size: 0.8em;
     }
-    
-    .button button:first-child{
+
+    .button .btn-cta:first-child{
         padding:10px 20px;
         background-color: #388177;
     }
-    
-    .button button:last-child{
+
+    .button .btn-cta:last-child{
         padding:10px 30px;
         background-color: #EC5D56;
     }
@@ -519,11 +522,11 @@
         flex-direction: column;
     }
     
-    .button button{
+    .button .btn-cta{
         width: 100%;
     }
 
-    .button button:last-child{
+    .button .btn-cta:last-child{
         margin:0;
         margin-top: 10px;
     }

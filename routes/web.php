@@ -1,49 +1,29 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GedurasiController;
-use App\Http\Controllers\SCHController;
-use App\Http\Controllers\WhoWeAreController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\RencangCTController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\WhatWeDoController;
-use App\Http\Controllers\SenteraController;
-use App\Http\Controllers\KeakrabanController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Halaman Website Rencang
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| Semua halaman bersifat statis, jadi cukup Route::view tanpa controller.
+| Konvensi: nama route = slug URL, nama view = resources/views/pages/{slug}.
+| URL tidak dikenal otomatis menampilkan resources/views/errors/404.blade.php.
 |
 */
 
-Route::get('/', [HomeController::class,'viewIndex'])->name('home');
-Route::get('/gedurasi', [GedurasiController::class, 'viewIndex'])->name('gedurasi');
-Route::get('/rencang-cepat-tanggap', [RencangCTController::class, 'viewIndex'])->name('rct');
-Route::get('/what-we-do' , [WhatWeDoController::class, 'viewIndex'])->name('wwd');
-Route::get('/event', [EventController::class, 'viewIndex'])->name('event');
-Route::get('/gedurasi', [GedurasiController::class, 'viewIndex'])->name('gedurasi');
-Route::get('/who-we-are', [WhoWeAreController::class, 'viewIndex'])->name('wwa');
-Route::get('/sharing-caring-helping', [SCHController::class, 'viewIndex'])->name('sch');
-Route::get('/sentera', [SenteraController::class, 'viewIndex'])->name('sentera');
-Route::get('/keakraban', [KeakrabanController::class, 'viewIndex'])->name('keakraban');
-Route::get('/soon', function () {
-    return view('page.soon', ['title' => 'Coming Soon']);
-})->name('soon');
+Route::view('/', 'pages.home', ['title' => 'Rencang'])->name('home');
 
-Route::any(
-    '{query}',
-    function () {
-        return redirect('/');
-    }
-)->where('query', '.*');
+Route::view('/what-we-do', 'pages.what-we-do', ['title' => 'Rencang - What We Do'])->name('what-we-do');
+Route::view('/who-we-are', 'pages.who-we-are', ['title' => 'Rencang - Who We Are'])->name('who-we-are');
+Route::view('/event', 'pages.event', ['title' => 'Rencang - Event'])->name('event');
 
+// Halaman program (arsip kegiatan Generasi 13 & 14).
+Route::view('/gedurasi', 'pages.gedurasi', ['title' => 'Rencang - Gedurasi'])->name('gedurasi');
+Route::view('/sentera', 'pages.sentera', ['title' => 'Rencang - Sentera'])->name('sentera');
+Route::view('/sharing-caring-helping', 'pages.sharing-caring-helping', ['title' => 'Rencang - SCH'])->name('sharing-caring-helping');
+Route::view('/rencang-cepat-tanggap', 'pages.rencang-cepat-tanggap', ['title' => 'Rencang - RCT'])->name('rencang-cepat-tanggap');
+Route::view('/keakraban', 'pages.keakraban', ['title' => 'Rencang - Keakraban'])->name('keakraban');
 
-
-
-
+Route::view('/soon', 'pages.coming-soon', ['title' => 'Coming Soon'])->name('coming-soon');
