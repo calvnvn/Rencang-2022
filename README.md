@@ -1,120 +1,96 @@
-# Website UKM Sosial Rencang
+# Rencang Website
 
-Website resmi **Rencang**, Unit Kegiatan Mahasiswa (UKM) sosial di Universitas Multimedia Nusantara: <https://rencang.umn.ac.id>.
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
+[![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
 
-Isinya profil organisasi, kategori kegiatan, dan arsip program (GEDURASI, SENTERA, Sharing Caring Helping, Rencang Cepat Tanggap, Keakraban). Semua halaman bersifat statis: tidak ada login, form, atau database.
+Website resmi **UKM Sosial Rencang**, Universitas Multimedia Nusantara (UMN). Alamat resmi: `rencang.umn.ac.id`.
 
-| | |
+*Official website of Rencang, the student social community at Universitas Multimedia Nusantara, Indonesia.*
+
+## Tentang
+
+**Rencang** ("sahabat" dalam bahasa Jawa) adalah komunitas sosial mahasiswa UMN yang berdiri sejak 23 September 2007. Kegiatannya berfokus pada membantu sesama dalam bentuk materi maupun non-materi, mempererat kekeluargaan antaranggota, dan mengembangkan potensi anggotanya.
+
+Website ini memperkenalkan Rencang kepada calon anggota, mitra, dan masyarakat umum, serta mengarsipkan kegiatan-kegiatannya.
+
+### Isi website
+
+| Halaman | Isi |
 |---|---|
-| Framework | Laravel 12 (PHP ≥ 8.2) |
-| Frontend | Blade + Bootstrap 4.5, jQuery 3.5 (lewat CDN), CSS per halaman di `public/css` |
-| Database | Tidak dipakai |
-| Hosting | Server IT UMN, unggah lewat FTP (lihat [docs/DEPLOY.md](docs/DEPLOY.md)) |
+| Beranda | Sambutan, pengantar singkat tentang Rencang, dan banner event yang sedang berjalan |
+| What We Do | Empat kategori kegiatan: Tahunan, Unggulan, Keakraban, dan Insidental |
+| Who We Are | Profil, makna nama dan logo, tujuan, visi dan misi |
+| Event | Rangkuman program kegiatan Generasi 13 dan 14 |
+| Halaman program | GEDURASI (literasi), SENTERA (dukungan bagi pejuang kanker anak), Sharing Caring Helping (donor darah), Rencang Cepat Tanggap (bantuan bencana), dan Keakraban |
 
-> ⚠️ **Laravel 12 hanya menerima patch keamanan sampai 24 Februari 2027.** Rencanakan upgrade ke Laravel 13 (butuh PHP 8.3) sebelum tanggal itu. Detail di [docs/AUDIT_DAN_ROADMAP.md](docs/AUDIT_DAN_ROADMAP.md) §10.
+Website ini bersifat statis: tidak ada login, formulir, maupun database.
 
----
+## Teknologi
+
+- PHP 8.2 atau lebih baru, [Laravel 12](https://laravel.com/)
+- Blade untuk tampilan, [Bootstrap 4](https://getbootstrap.com/docs/4.5/) dan jQuery (dimuat lewat CDN), serta CSS per halaman
+- PHPUnit untuk pengujian dan [Laravel Pint](https://laravel.com/docs/pint) untuk format kode
 
 ## Menjalankan di komputer sendiri
 
-Kebutuhan: **PHP 8.2+** (misalnya dari XAMPP atau Laragon), **Composer 2**, dan **Git**. Node.js tidak diperlukan.
+**Yang dibutuhkan:** [PHP](https://www.php.net/downloads) 8.2+ dan [Composer](https://getcomposer.org/) 2. Node.js **tidak** diperlukan.
 
 ```bash
-git clone https://github.com/calvnvn/Rencang-2022.git rencang-website
+git clone <URL-repositori-ini> rencang-website
 cd rencang-website
-composer install
-copy .env.example .env
-php artisan key:generate
-```
-
-`.env.example` berisi nilai **produksi**. Untuk lokal, ubah empat baris ini di `.env`:
-
-```dotenv
-APP_ENV=local
-APP_DEBUG=true
-APP_URL=http://127.0.0.1:8000
-SESSION_SECURE_COOKIE=false
-```
-
-Lalu jalankan:
-
-```bash
+composer setup
 php artisan serve
 ```
 
-Buka <http://127.0.0.1:8000>. Butuh koneksi internet karena Bootstrap dan jQuery dimuat dari CDN.
+Buka <http://127.0.0.1:8000> di browser.
 
-## Struktur folder
+`composer setup` memasang dependensi, membuat file `.env` dari `.env.example`, dan membuat kunci aplikasi. Selama pengembangan, ubah `APP_ENV=local` dan `APP_DEBUG=true` di `.env` supaya pesan error tampil lengkap.
+
+> Butuh koneksi internet, karena Bootstrap dan jQuery dimuat dari CDN. Bila Composer melaporkan ekstensi PHP yang belum aktif (misalnya `mbstring` atau `openssl`), aktifkan di `php.ini` lalu ulangi.
+
+## Pengujian dan format kode
+
+```bash
+composer test    # menjalankan semua test
+composer lint    # memeriksa format kode (perbaiki otomatis: vendor/bin/pint)
+```
+
+## Struktur proyek
 
 ```
-app/Support/EventBanner.php     Logika kapan banner event di beranda tampil
-config/rencang.php              Data organisasi & banner event (ubah di sini, bukan di Blade)
-routes/web.php                  Daftar semua halaman (Route::view)
+config/rencang.php          Data organisasi dan pengaturan banner event
+routes/web.php              Daftar halaman
 resources/views/
-  layouts/app.blade.php         Kerangka HTML: <head>, navbar, footer, script
-  partials/navbar.blade.php
-  partials/footer.blade.php
-  pages/*.blade.php             Satu file per halaman, nama = slug URL
-  errors/404|500|503.blade.php  Halaman error bergaya Rencang
+  layouts/                  Kerangka halaman bersama
+  partials/                 Navbar dan footer
+  pages/                    Satu file per halaman
+  errors/                   Halaman 404, 500, dan 503
 public/
-  css/<halaman>/*.css           CSS per halaman
-  fonts/, images/, js/          Aset statis
-tests/
-  Feature/PagesTest.php         Semua halaman 200, aset ada, 404, banner
-  Unit/EventBannerTest.php
-docs/                           Dokumentasi proyek (lihat daftar di bawah)
+  css/                      CSS per halaman
+  fonts/ images/ js/        Aset statis
+tests/                      Pengujian otomatis
 ```
 
-## Tugas yang sering dilakukan
+## Mengelola konten
 
-### Mengganti atau menyembunyikan banner event di beranda
+**Banner event di beranda.** Atur nama, tanggal berakhir, dan tautan pendaftaran di `config/rencang.php`. Setelah tanggal berakhir lewat, banner dan hitung mundurnya tersembunyi otomatis. Format tanggal harus `YYYY-MM-DD HH:MM:SS`.
 
-1. Buka `config/rencang.php`, ubah bagian `event_banner`:
-   ```php
-   'event_banner' => [
-       'name' => 'NAMA EVENT',
-       'ends_at' => '2026-12-01 23:59:00',   // format wajib: YYYY-MM-DD HH:MM:SS (WIB)
-       'registration_url' => 'https://forms.gle/...',
-   ],
-   ```
-2. Ganti teks dan logo banner di `resources/views/pages/home.blade.php` (blok di dalam `@if ($showBanner)`).
-3. Setelah `ends_at` lewat, banner dan countdown **hilang sendiri**. Tanggal yang salah format membuat banner tidak tampil.
+**Menambah halaman.**
 
-### Menambah halaman baru
-
-1. Buat `resources/views/pages/nama-halaman.blade.php`, mulai dengan `@extends('layouts.app')`.
+1. Buat `resources/views/pages/nama-halaman.blade.php` yang diawali `@extends('layouts.app')`.
 2. Daftarkan di `routes/web.php`:
    ```php
    Route::view('/nama-halaman', 'pages.nama-halaman', ['title' => 'Rencang - Nama'])->name('nama-halaman');
    ```
-3. Tambahkan baris ke daftar `pages()` di `tests/Feature/PagesTest.php`.
-4. Jalankan `composer test`.
+3. Tambahkan halaman itu ke daftar di `tests/Feature/PagesTest.php`, lalu jalankan `composer test`.
 
-### Konvensi
-
-- **Nama route = slug URL = nama file view**, huruf kecil dengan tanda hubung (`sharing-caring-helping`).
-- Tautan antarhalaman memakai `route('nama')`; aset memakai `asset('path')`. Jangan menulis path relatif seperti `images/...` tanpa `asset()`.
-- Nama file aset baru: huruf kecil, tanpa spasi (`foto-kegiatan-1.webp`), dan sebaiknya < 300 KB.
-
-## Pengecekan sebelum commit
-
-```bash
-composer test        # semua test harus lulus
-composer lint        # format kode PHP (Laravel Pint); perbaiki otomatis dengan: vendor\bin\pint
-composer audit       # tidak boleh ada advisory keamanan
-```
-
-## Dokumentasi
-
-| Dokumen | Isi |
-|---|---|
-| [docs/DEPLOY.md](docs/DEPLOY.md) | Cara mengunggah ke server UMN, checklist, rollback |
-| [docs/MIGRASI_LARAVEL_12.md](docs/MIGRASI_LARAVEL_12.md) | Apa yang berubah dari Laravel 8 ke 12 dan bukti pengujiannya |
-| [docs/AUDIT_DAN_ROADMAP.md](docs/AUDIT_DAN_ROADMAP.md) | Temuan keamanan, kualitas, aksesibilitas, dan rencana perbaikan |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Analisis arsitektur versi lama (Laravel 8), latar belakang upgrade |
-| [docs/PRD.md](docs/PRD.md) | Kebutuhan produk, persona, dan ruang lingkup |
-| [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | Warna, tipografi, komponen, dan audit kontras |
+Gunakan `route('nama')` untuk tautan antarhalaman dan `asset('path')` untuk aset.
 
 ## Kontak
 
-UKM Sosial Rencang · <rencang@umn.ac.id> · Instagram [@rencangaye](https://www.instagram.com/rencangaye/)
+UKM Sosial Rencang, Universitas Multimedia Nusantara
+Email: <rencang@umn.ac.id> · Instagram: [@rencangaye](https://www.instagram.com/rencangaye/)
+
+## Hak cipta
+
+Repositori ini belum menyertakan berkas lisensi. Logo, ilustrasi, dan foto kegiatan di dalamnya adalah milik UKM Rencang, jadi mohon hubungi kami sebelum menggunakannya kembali.
