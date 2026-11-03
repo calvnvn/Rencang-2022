@@ -90,7 +90,3 @@ Gunakan `route('nama')` untuk tautan antarhalaman dan `asset('path')` untuk aset
 
 UKM Sosial Rencang, Universitas Multimedia Nusantara
 Email: <rencang@umn.ac.id> · Instagram: [@rencangaye](https://www.instagram.com/rencangaye/)
-
-## Hak cipta
-
-Repositori ini belum menyertakan berkas lisensi. Logo, ilustrasi, dan foto kegiatan di dalamnya adalah milik UKM Rencang, jadi mohon hubungi kami sebelum menggunakannya kembali.
